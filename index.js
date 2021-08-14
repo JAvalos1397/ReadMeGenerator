@@ -26,23 +26,9 @@ inquirer.prompt (
         },
         {
             type:'list',
-            message:"What software do you use",
-            name: 'software',
-            choices: "Awesome",
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
-        },
-        {
-            type:'input',
-            message:"GitHub Username",
-            name: 'Git',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
-        },
-        {
-            type:'input',
-            message:"E-mail",
-            name: 'email',
-            
+            message:"What License where you using",
+            name: 'License',
+            choices: ["MIT License","Apache","GNU","ISC","Rust", "NA"],
             validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
         },
         {
@@ -54,8 +40,24 @@ inquirer.prompt (
         },
         {
             type:'input',
-            message:"What's the project title?",
-            name: 'license',
+            message:"GitHub Username",
+            name: 'Git',
+            
+            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+        },
+        
+        {
+            type:'input',
+            message:"E-mail",
+            name: 'email',
+            
+            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+        },
+        
+        {
+            type:'input',
+            message:"Enter any credits, or inspirations",
+            name: 'Acknowledgments',
             
             validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
         },
@@ -64,7 +66,6 @@ inquirer.prompt (
     title,
     installation,
     instructions,
-    software,
     license,
     git,
     linkdein,
