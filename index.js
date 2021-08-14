@@ -60,4 +60,54 @@ inquirer.prompt (
             validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
         },
     ]
+).then(({
+    title,
+    installation,
+    instructions,
+    software,
+    license,
+    git,
+    linkdein,
+    email
+}) => {
+const template =` # ${title}
+
+* [Installation](#Installation)
+* [Usage](#usage)
+* [contribution] (#contribution)
+* [credits](#credits)
+* [License](#license)
+# Installation
+${installation}
+
+## Usage
+${usage}
+
+## Contribution
+${contribution}
+
+## Instructions
+${instructions}
+
+## Credits
+${credits}
+
+## License
+${license}
+
+# Contact
+* GitHub: ${git}
+*Linkdin: ${linkdein}
+*E-mail: ${email}`;
+writeUpReadMe(title,template)
+}
 )
+
+function wrtieUpReadMe(filename,template){
+    fs.writefile(`./${filename.toLowerCase().split(' ').join('')}.md`,template,(err)=>{
+    if(err){
+        console.log(err)
+    }
+    console.log("Your README has is generated")
+})
+}
