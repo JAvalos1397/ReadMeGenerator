@@ -12,15 +12,29 @@ inquirer.prompt (
         },
         {
             type:'input',
-            message:"How do you install or download?",
+            message:"Enter in Description of your Project",
+            name: 'usage',
+            
+            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+        },
+        {
+            type:'input',
+            message:"What are the installation instructions",
             name: 'installation',
             
             validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
         },
         {
             type:'input',
-            message:"Are there any instructions to follow?",
-            name: 'instructions',
+            message:"How do you use your Project?",
+            name: 'usage',
+            
+            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+        },
+        {
+            type:'input',
+            message:"What are your contribution guidelines?",
+            name: 'contribution',
             
             validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
         },
@@ -31,13 +45,7 @@ inquirer.prompt (
             choices: ["MIT License","Apache","GNU","ISC","Rust", "NA"],
             validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
         },
-        {
-            type:'input',
-            message:"What use does your project have?",
-            name: 'usage',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
-        },
+        
         {
             type:'input',
             message:"GitHub Username",
