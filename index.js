@@ -1,122 +1,135 @@
-const inquirer = require(inquirer);
-const fs = require('fs')
+const inquirer = require("inquirer");
+const fs = require('fs');
 
-inquirer.prompt (
+inquirer.prompt(
     [
         {
-            type:'input',
-            message:"What's the project title?",
+            type: 'input',
+            message: "What's the project title?",
             name: 'title',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
         {
-            type:'input',
-            message:"Enter in Description of your Project",
-            name: 'usage',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+            type: 'input',
+            message: "Enter in Description of your Project",
+            name: 'introduction',
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
         {
-            type:'input',
-            message:"What are the installation instructions",
+            type: 'input',
+            message: "What are the installation instructions",
             name: 'installation',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
         {
-            type:'input',
-            message:"How do you use your Project?",
-            name: 'usage',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+            type: 'input',
+            message: "What are your requirements guidelines?",
+            name: 'requirements',
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
         {
-            type:'input',
-            message:"What are your contribution guidelines?",
-            name: 'contribution',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+            type: 'list',
+            message: "What License where you using",
+            name: 'license',
+            choices: ["MIT", "Apache", "GPL", "GitHub", "NA"],
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
+
         {
-            type:'list',
-            message:"What License where you using",
-            name: 'License',
-            choices: ["MIT License","Apache","GNU","ISC","Rust", "NA"],
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+            type: 'input',
+            message: "GitHub Username",
+            name: 'git',
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
-        
+
         {
-            type:'input',
-            message:"GitHub Username",
-            name: 'Git',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
-        },
-        
-        {
-            type:'input',
-            message:"E-mail",
+            type: 'input',
+            message: "E-mail",
             name: 'email',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
-        
+
         {
-            type:'input',
-            message:"Enter any credits, or inspirations",
-            name: 'Acknowledgments',
-            
-            validate: (value)=>{if (value){return true}else {return "I need a value to continue"}}
+            type: 'input',
+            message: "Enter any credits, or inspirations",
+            name: 'credit',
+
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
     ]
 ).then(({
     title,
     installation,
+    introduction,
     instructions,
-    license,
+    requirements,  
     git,
-    linkdein,
-    email
+    email,
+    credit,
+    license,
 }) => {
-const template =` # ${title}
-
+    const label = license;
+    switch(label){
+        case 'GPL':
+            return "![license](https://img.shields.io/badge/license-GPL-brightgreen)";
+        
+        case 'MIT':
+            return "![license](https://img.shields.io/badge/license-MIT-green)";
+        
+        case 'Apache':
+            return "![license](https://img.shields.io/badge/license-Apache-blue)";
+        
+        case 'NA':
+        console.log("Not applicable");
+        break;
+    }
+    
+    const template = ` # ${title}
+## License
+${license}
+${label}
 * [Installation](#Installation)
 * [Usage](#usage)
-* [contribution] (#contribution)
+* [requirements](#requirements)
 * [credits](#credits)
 * [License](#license)
-# Installation
+<hr>
+
+## Introduction
+${introduction}
+
+## Installation
 ${installation}
 
-## Usage
-${usage}
-
-## Contribution
-${contribution}
+## Requirements
+${requirements}
 
 ## Instructions
 ${instructions}
 
 ## Credits
-${credits}
+${credit}
 
-## License
-${license}
+* GitHub: [GitHub](https://${git})
 
-# Contact
-* GitHub: ${git}
-*Linkdin: ${linkdein}
-*E-mail: ${email}`;
-writeUpReadMe(title,template)
+* E-mail: [email](${email})`;
+    writeUpReadMe(title, template)
 }
 )
 
-function wrtieUpReadMe(filename,template){
-    fs.writefile(`./${filename.toLowerCase().split(' ').join('')}.md`,template,(err)=>{
-    if(err){
-        console.log(err)
-    }
-    console.log("Your README has is generated")
-})
-}
+function writeUpReadMe(filename, template) {
+   console.log(filename)
+    fs.writeFile(`./${filename.toLowerCase().split(' ').join('')}.md`, template, (err) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log("Your README has is generated")
+    })
+};
+// writeUpReadMe("tacos","##Tacos")
