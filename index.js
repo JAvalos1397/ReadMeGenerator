@@ -130,7 +130,7 @@ ${test}
 ## __Credits__
 ${credit}
 
-* GitHub: [https://${git}](https://${git})
+* GitHub: [${git}](https://github.com/${git})
 
 * E-mail: [${email}](${email})`;
     writeUpReadMe(title, template)
@@ -139,7 +139,7 @@ ${credit}
 
 function writeUpReadMe(filename, template) {
     console.log(filename)
-    fs.writeFile(`./${filename.toLowerCase().split(' ').join('')}.md`, template, (err) => {
+    fs.writeFile(`./Demo/${filename.toLowerCase().split(' ').join('')}.md`, template, (err) => {
         if (err) {
             console.log(err)
         }
