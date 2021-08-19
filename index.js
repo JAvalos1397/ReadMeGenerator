@@ -13,7 +13,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: "Enter in Description of your Project",
-            name: 'introduction',
+            name: 'description',
 
             validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
@@ -26,19 +26,25 @@ inquirer.prompt(
         },
         {
             type: 'input',
-            message: "What are your requirements guidelines?",
-            name: 'requirements',
+            message: "What are the usages?",
+            name: 'usage',
 
             validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
         {
             type: 'list',
-            message: "What License where you using",
+            message: "What License are you using",
             name: 'license',
             choices: ["MIT", "Apache", "GPL", "GitHub", "NA"],
             validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
         },
+        {
+            type: 'input',
+            message: "Provide testing instruction",
+            name: 'test',
 
+            validate: (value) => { if (value) { return true } else { return "I need a value to continue" } }
+        },
         {
             type: 'input',
             message: "GitHub Username",
@@ -66,65 +72,73 @@ inquirer.prompt(
 ).then(({
     title,
     installation,
-    introduction,
-    instructions,
-    requirements,  
+    description,
+    usage,
+    test,
     git,
     email,
     credit,
     license,
 }) => {
-    const label = license;
-    switch(label){
-        case 'GPL':
-            return "![license](https://img.shields.io/badge/license-GPL-brightgreen)";
+    const expr = license;
+    switch (expr) {
+        case 'GPL':{
+            var label = "![license](https://img.shields.io/badge/license-GPL-brightgreen)";
+            console.log("GPL")
+            break;}
+            
+        case 'MIT':{
+            var label = "![license](https://img.shields.io/badge/license-MIT-green)";
+            console.log("MIT")
+            break;}
         
-        case 'MIT':
-            return "![license](https://img.shields.io/badge/license-MIT-green)";
-        
-        case 'Apache':
-            return "![license](https://img.shields.io/badge/license-Apache-blue)";
-        
+        case 'Apache':{
+            var label = "![license](https://img.shields.io/badge/license-Apache-blue)";
+            console.log("Apache")
+            break;}
+            
+        case 'GitHub':{
+            var label = '![license](https://img.shields.io/badge/license-GitHub-brightgreen)';
+            console.log("GitHub")
+            break;}
         case 'NA':
-        console.log("Not applicable");
-        break;
-    }
-    
+            console.log("Not applicable");
+            break;
+    };
+
     const template = ` # ${title}
-## License
-${license}
-${label}
+### License
+${license} ${label}
 * [Installation](#Installation)
 * [Usage](#usage)
-* [requirements](#requirements)
-* [credits](#credits)
-* [License](#license)
+* [Test](#test)
+* [Credits](#credits)
 <hr>
 
-## Introduction
-${introduction}
+## __Description__
+${description}
 
-## Installation
+## __Installation__
 ${installation}
 
-## Requirements
-${requirements}
+## __usage__
+${usage}
 
-## Instructions
-${instructions}
+## __Test__
+${test}
 
-## Credits
+## __Credits__
 ${credit}
 
-* GitHub: [GitHub](https://${git})
+* GitHub: [https://${git}](https://${git})
 
-* E-mail: [email](${email})`;
+* E-mail: [${email}](${email})`;
     writeUpReadMe(title, template)
 }
 )
 
 function writeUpReadMe(filename, template) {
-   console.log(filename)
+    console.log(filename)
     fs.writeFile(`./${filename.toLowerCase().split(' ').join('')}.md`, template, (err) => {
         if (err) {
             console.log(err)
@@ -132,4 +146,3 @@ function writeUpReadMe(filename, template) {
         console.log("Your README has is generated")
     })
 };
-// writeUpReadMe("tacos","##Tacos")
